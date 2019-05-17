@@ -31,9 +31,6 @@ int16_t GyMask[3][3] = {
 	{-1, -2, -1},  {0, 0, 0},  {1, 2, 1}
 };	
 
-	
-
-
 
 void initialization();
 bool compare_Gaussian_images();
@@ -83,8 +80,6 @@ int main() {
 }
 
 
-
-
 void initialization(){
 	int i,j;
 	
@@ -112,7 +107,7 @@ void Gaussian_Blur(){
 	
 	int32_t r0,r1,r2;
 	int row, col, rowOffset, colOffset;							
-		
+		/*----------------------Gaussian Blur------------------------*/		
 	 for (row=1;row<N-1;row++) {
 	  for (col=1;col<N-1;col++) {
 			r2=0;
@@ -127,17 +122,15 @@ void Gaussian_Blur(){
 				}
 				out_img[row][col]=r2 /16;				
 			}
-	 }
+		}
  }
 
 //returns false/true, when the output image is incorrect/correct, respectively
 bool compare_Gaussian_images(){
 	
 	int row, col, rowOffset, colOffset;	
-	int newPixel;
-	
-		/*----------------------COMPARE------------------------*/
-			
+	int newPixel;	
+		/*----------------------COMPARE------------------------*/			
 		for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {
 			newPixel = 0;
@@ -146,41 +139,44 @@ bool compare_Gaussian_images(){
 					
           newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
 				}
-			        }
+			}
 		 newPixel /= 16;
 		 if (newPixel != out_img[row][col]){
 			 return false;
 		 }			 
 		}
 	}
-		
-		
-	return true;	
-		
+	return true;			
 	}
 
 void Sobel(){
 	
-			int row, col, rowOffset, colOffset,Gx,Gy;	
-				
+	int32_t r0,r1,r2,r3;
+	int row, col, rowOffset, colOffset, Gx, Gy;		
 	float thisAngle;				
-	uint8_t newAngle;
-	
+	uint8_t newAngle;	
 		/*---------------------- Sobel ---------------------------------*/
-		for (row = 1; row < N-1; row++) {
+	for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {
-
-			Gx = 0;
-			Gy = 0;
-
+			
+			r2 = 0;
+			r3 = 0;
 			//Calculate the sum of the Sobel mask times the nine surrounding pixels in the x and y direction 
 			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
 				for (colOffset=-1; colOffset<=1; colOffset++) {
+										
+						r0= out_img[row+rowOffset][col+colOffset];
+						r1= GxMask[1 + rowOffset][1 + colOffset];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
 					
-					Gx += out_img[row+rowOffset][col+colOffset] * GxMask[rowOffset + 1][colOffset + 1];
-					Gy += out_img[row+rowOffset][col+colOffset] * GyMask[rowOffset + 1][colOffset + 1];
+						r0= out_img[row+rowOffset][col+colOffset];
+						r1= GyMask[1 + rowOffset][1 + colOffset];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);					
+
 				}
 			}
+			Gx = r2;
+			Gy = r3;
 
 			gradient[row][col] = abs(Gx) + abs(Gy);	// Calculate gradient strength		
 			thisAngle = (atan2((float) Gx, (float) Gy)/3.14159f) * 180.0f;		// Calculate actual direction of edge [-180, +180]
@@ -195,26 +191,21 @@ void Sobel(){
 			if ( ( (thisAngle > 112.5f) && (thisAngle < 157.5f) ) || ( (thisAngle > -67.5f) && (thisAngle < -22.5f) ) )
 				newAngle = 135;
 				
-			edge_Dir[row][col] = newAngle;		
-
+			edge_Dir[row][col] = newAngle;
 
 		}
 	}
-
 }
 
-
-	
 	//this function is check whether your code version generates the correct output or not
 	//DO NOT AMEND
 	bool compare_Sobel_images(){
-			
+	
 	int row, col, rowOffset, colOffset;	
 	int Gx,Gy,temp;
 	float thisAngle;
 	uint8_t newAngle;
-		
-		
+	/*----------------------COMPARE------------------------*/	
 	 for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {
 
@@ -248,22 +239,17 @@ void Sobel(){
 			
 			if (newAngle != edge_Dir[row][col])
 					return false;
-
 		}
-	}
-	 
-		
-	return true;	
-		
+	}	 		
+	return true;			
 	}
 	
-
 	void print_message(char *s, bool outcome){
 		
 	if (outcome==true)
 		printf("\n\n\r ----- %s output is correct - SUCCESS!-----\n\r",s);
 	else 
 		printf("\n\n\r -----%s output is INcorrect - ERROR!-----\n\r",s);
-		
+	
 	}
 
