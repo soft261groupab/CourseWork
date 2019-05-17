@@ -46,7 +46,7 @@ void Sobel();
 int main() {
   
 	
-printf("\n\r Programmed started \n\r");
+//printf("\n\r Programmed started \n\r");
 
 	initialization();
 	
@@ -58,7 +58,7 @@ printf("\n\r Programmed started \n\r");
 	Gaussian_Blur();	
 //------------------------------------------------------------------------------
     timer.stop();
-    printf("\n\rThe time taken for gaussian Blur was %f seconds\n", timer.read());
+	printf("\n\rGaussian Blur: executed in %f seconds", timer.read());
 	  timer.reset();
 	  snprintf(message,sizeof(message)-1,"Gaussian Blur");
     print_message( message,compare_Gaussian_images());
@@ -67,14 +67,14 @@ printf("\n\r Programmed started \n\r");
 	//--------------------------------------------------------
 	//--------------------------------------
 	
-	  printf("\n\rTimer started for Sobel!\n");
+	  //printf("\n\rTimer started for Sobel!\n");
 		timer.start();
     	
 	//YOU WILL OPTIMIZE THE FOLLOWING function 
 	Sobel();
 	//-------------------
 	  timer.stop();
-    printf("\n\rThe time taken for Sobel was %f seconds\n", timer.read());
+    printf("\n\rSobel executed in %f seconds", timer.read());
 		snprintf(message,sizeof(message)-1,"Sobel");
     print_message(message,compare_Sobel_images());
 
@@ -110,25 +110,54 @@ void initialization(){
 
 void Gaussian_Blur(){
 	
-		int row, col, rowOffset, colOffset;							
-	int newPixel;	
+	int32_t r0,r1,r2;
+	int row, col, rowOffset, colOffset;							
+		
+	 for (row=1;row<N-1;row++) {
+	  for (col=1;col<N-1;col++) {
+			r2=0;
+				for (rowOffset=-1; rowOffset<=1; rowOffset++) {
+					for (colOffset=-1; colOffset<=1; colOffset++) {
+									
+						r0= inp_img[row+rowOffset][col+colOffset];
+						r1= gaussianMask[1 + rowOffset][1 + colOffset];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
+						
+					}
+				}
+				out_img[row][col]=r2 /16;				
+			}
+	 }
+ }
+
+//returns false/true, when the output image is incorrect/correct, respectively
+bool compare_Gaussian_images(){
 	
-		/*---------------------- Gaussian Blur ---------------------------------*/
-	 for (row = 1; row < N-1; row++) {
+	int row, col, rowOffset, colOffset;	
+	int newPixel;
+	
+		/*----------------------COMPARE------------------------*/
+			
+		for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {
 			newPixel = 0;
 			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
 				for (colOffset=-1; colOffset<=1; colOffset++) {
 					
-                   newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
+          newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
 				}
 			        }
-		out_img[row][col] = newPixel / 16;
+		 newPixel /= 16;
+		 if (newPixel != out_img[row][col]){
+			 return false;
+		 }			 
 		}
 	}
-}
-
-
+		
+		
+	return true;	
+		
+	}
 
 void Sobel(){
 	
@@ -175,34 +204,6 @@ void Sobel(){
 }
 
 
-
-//returns false/true, when the output image is incorrect/correct, respectively
-bool compare_Gaussian_images(){
-	
-	int row, col, rowOffset, colOffset;	
-	int newPixel;
-	
-			
-		for (row = 1; row < N-1; row++) {
-		for (col = 1; col < M-1; col++) {
-			newPixel = 0;
-			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
-				for (colOffset=-1; colOffset<=1; colOffset++) {
-					
-          newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
-				}
-			        }
-		 newPixel /= 16;
-		 if (newPixel != out_img[row][col]){
-			 return false;
-		 }			 
-		}
-	}
-		
-		
-	return true;	
-		
-	}
 	
 	//this function is check whether your code version generates the correct output or not
 	//DO NOT AMEND
@@ -260,9 +261,9 @@ bool compare_Gaussian_images(){
 	void print_message(char *s, bool outcome){
 		
 	if (outcome==true)
-		printf("\n\n\r ----- %s output is correct -----\n\r",s);
+		printf("\n\n\r ----- %s output is correct - SUCCESS!-----\n\r",s);
 	else 
-		printf("\n\n\r -----%s output is INcorrect -----\n\r",s);
+		printf("\n\n\r -----%s output is INcorrect - ERROR!-----\n\r",s);
 		
 	}
 
