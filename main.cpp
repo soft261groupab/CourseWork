@@ -18,11 +18,11 @@ AnalogIn AIN(A0);
 
 //Global Variable
 float fVin = 0.0;
-
+float sampleStr = 0.1;
 
 int main() {
 	
-	float sampleStr = 0.1;
+	
 	while(1){
 		
 		//Read ADC
@@ -37,12 +37,12 @@ int main() {
 		if(SW2 == 1){ 
 
 		printf("Enter sampling rate");
-		pc.scanf("%s", &sampleStr); 
-		//sampleStr = 1 /sampleStr;
+		pc.scanf("%f", &sampleStr); 
+		sampleStr = 1 / sampleStr;
 
-
+		}
 		
-	}
+	
 	}
 }
 
