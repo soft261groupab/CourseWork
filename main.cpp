@@ -30,11 +30,13 @@ int main() {
 		
 		//Write to terminal
 		printf("Analog input = %5.3f\n", fVin);
-		
+		binaryOutput = 2;
 		//Wait
 		wait(sampleStr);
+		binaryOutput = 0;
 		
 		if(SW2 == 1){ 
+			binaryOutput = 1;
 			check = false;
 		while(check == false){
 		printf("Enter sampling rate");
