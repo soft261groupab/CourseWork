@@ -19,7 +19,7 @@ AnalogIn AIN(A0);
 //Global Variable
 float fVin = 0.0;
 float sampleStr = 0.1;
-
+bool check = false;
 int main() {
 	
 	
@@ -35,11 +35,19 @@ int main() {
 		wait(sampleStr);
 		
 		if(SW2 == 1){ 
-
+			check = false;
+		while(check == false){
 		printf("Enter sampling rate");
 		pc.scanf("%f", &sampleStr); 
-		sampleStr = 1 / sampleStr;
-
+		
+			if(sampleStr <= 100 && sampleStr >= 5){
+				sampleStr = 1 / sampleStr;
+				check = true;
+			}
+			else{
+			check = false;
+			}
+		}
 		}
 		
 	
