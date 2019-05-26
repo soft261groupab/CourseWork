@@ -21,6 +21,8 @@ float fVin = 0.0;
 
 
 int main() {
+	
+	float sampleStr = 0.1;
 	while(1){
 		
 		//Read ADC
@@ -30,7 +32,17 @@ int main() {
 		printf("Analog input = %5.3f\n", fVin);
 		
 		//Wait
-		wait(0.1);
+		wait(sampleStr);
+		
+		if(SW2 == 1){ 
+
+		printf("Enter sampling rate");
+		pc.scanf("%s", &sampleStr); 
+		//sampleStr = 1 /sampleStr;
+
+
+		
+	}
 	}
 }
 
