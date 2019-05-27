@@ -1,0 +1,87 @@
+#include "mbed.h"
+#include "rtos.h"
+#include "string.h"
+#include <stdio.h>
+#include <ctype.h>
+
+
+
+//Serial Interface
+Serial pc(USBTX, USBRX);
+//Global Objects
+BusOut binaryOutput(D5, D6, D7);
+DigitalIn SW1(D3);
+DigitalIn SW2(D4);
+
+//Analog input
+AnalogIn AIN(A0);
+
+//Global Variable
+float fVin = 0.0;
+float sampleStr = 0.1;
+float inputFrequency = 10;
+bool check = false;
+float bufferArray[20];
+int arrayCounter = 0;
+float sum = 0;
+float averageBuffer = 0;
+
+
+
+void arrayAverage(){
+	if(arrayCounter == 20){
+         
+					arrayCounter = 0;
+        }
+    for(int i = 0; i<sizeof(bufferArray); i++){
+        sum = sum + bufferArray[i];
+    }
+    averageBuffer = sum /20;
+    printf("%5.3f\n", averageBuffer);
+		sum = 0;
+		
+}
+
+int main() {
+	
+	while(1){
+		
+		//Read ADC
+		fVin = AIN;
+		bufferArray[arrayCounter] = fVin;
+		
+        arrayCounter++;
+           arrayAverage();
+        
+
+		//printf("Analog input = %5.3f\n", fVin);
+		binaryOutput = 2;
+		//Wait
+		wait(sampleStr);
+		binaryOutput = 0;
+		
+		if(SW2 == 1){ 
+			binaryOutput = 1;
+			check = false;
+		while(check == false){
+		printf("Enter sampling rate");
+		pc.scanf("%f", &inputFrequency); 
+		
+			if(inputFrequency <= 100 && inputFrequency >= 5){
+				sampleStr = 1 / inputFrequency;
+				check = true;
+			}
+			else{
+			check = false;
+			}
+		}
+		}
+		
+	
+	}
+}
+
+
+
+
+
