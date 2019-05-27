@@ -19,17 +19,42 @@ AnalogIn AIN(A0);
 //Global Variable
 float fVin = 0.0;
 float sampleStr = 0.1;
+float inputFrequency = 10;
 bool check = false;
+float bufferArray[20];
+int arrayCounter = 0;
+float sum = 0;
+float averageBuffer = 0;
+
+
+
+void arrayAverage(){
+	if(arrayCounter == 20){
+         
+					arrayCounter = 0;
+        }
+    for(int i = 0; i<sizeof(bufferArray); i++){
+        sum = sum + bufferArray[i];
+    }
+    averageBuffer = sum /20;
+    printf("%5.3f\n", averageBuffer);
+		sum = 0;
+		
+}
+
 int main() {
-	
 	
 	while(1){
 		
 		//Read ADC
 		fVin = AIN;
+		bufferArray[arrayCounter] = fVin;
 		
-		//Write to terminal
-		printf("Analog input = %5.3f\n", fVin);
+        arrayCounter++;
+           arrayAverage();
+        
+
+		//printf("Analog input = %5.3f\n", fVin);
 		binaryOutput = 2;
 		//Wait
 		wait(sampleStr);
@@ -40,10 +65,10 @@ int main() {
 			check = false;
 		while(check == false){
 		printf("Enter sampling rate");
-		pc.scanf("%f", &sampleStr); 
+		pc.scanf("%f", &inputFrequency); 
 		
-			if(sampleStr <= 100 && sampleStr >= 5){
-				sampleStr = 1 / sampleStr;
+			if(inputFrequency <= 100 && inputFrequency >= 5){
+				sampleStr = 1 / inputFrequency;
 				check = true;
 			}
 			else{
@@ -55,6 +80,7 @@ int main() {
 	
 	}
 }
+
 
 
 
