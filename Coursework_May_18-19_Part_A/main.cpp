@@ -66,28 +66,34 @@ int main() {
 			check = false;
 		while(check == false){
 			printf("Enter Password: ");
-		pc.scanf("%*c", &inputPassword);
+			pc.scanf("%s", &inputPassword);
+			
 			if(strcmp(inputPassword, "password")==0){
 				printf("Enter 'rate' to change sample rate, or 'buffer' to clear buffer: ");
 				pc.scanf("%s", &inputChange);
 				check = true;
+				
 				if(strcmp(inputChange, "rate") == 0){
 					printf("Enter sampling rate: ");
-				pc.scanf("%f", &inputFrequency); 
+					pc.scanf("%f", &inputFrequency); 
 		
-				if(inputFrequency <= 100 && inputFrequency >= 5){
-					sampleStr = 1 / inputFrequency;
-					check = true;
+					if(inputFrequency <= 100 && inputFrequency >= 5){
+						sampleStr = 1 / inputFrequency;
+						check = true;
+						
+					}
+					else{
+						check = false;
+					}
 				}
-				else{
-					check = false;
-				}
-				}
+				
 				else if(strcmp(inputChange, "buffer") == 0){
 					for(int i = 0; i<sizeof(bufferArray); i++){
-					bufferArray[i] = 0;
-						check = true;
-    }
+						bufferArray[i] = 0;
+						
+					}
+					check = true;
+					
 				}
 			}
 			else{
