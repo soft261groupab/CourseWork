@@ -114,7 +114,7 @@ void initialization(){
 void Gaussian_Blur(){
 	
 	int32_t r0,r1,r2;
-	int row, col, rowOffset, colOffset;							
+	int row, col;							
 		/*----------------------Gaussian Blur------------------------*/	
 		
 		r2 = 0;
@@ -175,68 +175,53 @@ void Gaussian_Blur(){
 
 
 
-//returns false/true, when the output image is incorrect/correct, respectively
-bool compare_Gaussian_images(){
-	
-	bool debug = true;
-	
-	int row, col, rowOffset, colOffset;	
-	int newPixel;	
-		/*----------------------COMPARE------------------------*/		
-		
-		for (row = 1; row < N-1; row++) {
-		for (col = 1; col < M-1; col++) {
-			newPixel = 0;
-			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
-				for (colOffset=-1; colOffset<=1; colOffset++) {
-					
-          newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
-					
-				}
-			}
-		 newPixel /= 16; 
-		 if (newPixel != out_img[row][col]){
-			// return false;
-			 printf("\n\r  row: %d col: %d In val: %d Out val: %d", row ,col , newPixel, out_img[row][col]);
-			
-			debug = false;
-		 }			 
-		}
-	}
-		
-	
-	//return true;	
-		return debug;
-	}
+
+
 
 void Sobel(){
 	
 	int32_t r0,r1,r2,r3;
-	int row, col, rowOffset, colOffset, Gx, Gy;		
+	int row, col, rowOffset, Gx, Gy;		
 	float thisAngle;				
 	uint8_t newAngle;	
 		/*---------------------- Sobel ---------------------------------*/
-	for (row = 1; row < N-1; row++) {
-		for (col = 1; col < M-1; col++) {
-			
+	
 			r2 = 0;
 			r3 = 0;
-			//Calculate the sum of the Sobel mask times the nine surrounding pixels in the x and y direction 
-			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
-				for (colOffset=-1; colOffset<=1; colOffset++) {
-										
-						r0= out_img[row+rowOffset][col+colOffset];
-						r1= GxMask[1 + rowOffset][1 + colOffset];
+	 for (row=1;row<N-1;row++) {
+	 
+						r0= out_img[row + rowOffset][col - 1];
+						r1= GxMask[1 + rowOffset][0];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
 					
-						r0= out_img[row+rowOffset][col+colOffset];
-						r1= GyMask[1 + rowOffset][1 + colOffset];
+						r0= out_img[row+rowOffset][col- 1];
+						r1= GyMask[1 + rowOffset][0];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
-				}
-			}
-			Gx = r2;
-			Gy = r3;
 
+
+            r0= out_img[row + rowOffset][col];
+						r1= GxMask[1 + rowOffset][1];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
+					
+						r0= out_img[row + rowOffset][col];
+						r1= GyMask[1 + rowOffset][1];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+
+
+            r0= out_img[row + rowOffset][col + 1];
+						r1= GxMask[1 + rowOffset][2];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
+					
+						r0= out_img[row + rowOffset][col + 1];
+						r1= GyMask[1 + rowOffset][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+													
+						Gx = r2;
+						r2 = 0;
+			
+						Gy = r3;
+						r3=0;
+			
 			gradient[row][col] = abs(Gx) + abs(Gy);	// Calculate gradient strength		
 			thisAngle = (atan2((float) Gx, (float) Gy)/3.14159f) * 180.0f;		// Calculate actual direction of edge [-180, +180]
 			
@@ -254,7 +239,41 @@ void Sobel(){
 
 		}
 	}
-}
+
+	//this function is check whether your code version generates the correct output or not
+	//DO NOT AMEND
+//returns false/true, when the output image is incorrect/correct, respectively
+bool compare_Gaussian_images(){
+	
+	//bool debug = true;
+	
+	int row, col, rowOffset, colOffset;	
+	int newPixel;	
+		/*----------------------COMPARE------------------------*/		
+		
+		for (row = 1; row < N-1; row++) {
+		for (col = 1; col < M-1; col++) {
+			newPixel = 0;
+			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
+				for (colOffset=-1; colOffset<=1; colOffset++) {
+					
+          newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
+					
+				}
+			}
+		 newPixel /= 16; 
+		 if (newPixel != out_img[row][col]){
+			 return false;
+			 printf("\n\r  row: %d col: %d In val: %d Out val: %d", row ,col , newPixel, out_img[row][col]);
+			
+			//debug = false;
+		 }			 
+		}
+	}
+	
+	return true;	
+		//return debug;
+	}
 
 	//this function is check whether your code version generates the correct output or not
 	//DO NOT AMEND
