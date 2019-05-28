@@ -62,54 +62,27 @@ int main() {
 		binaryOutput = 0;
 		
 		
-	if(SW2 == 1){ 
+	if(SW2 == 1){
 	
 			binaryOutput = 1;
 			check = false;
-		while(check == false){
-			printf("Enter Password: ");
-			pc.scanf("%s", &inputPassword);
-			
-			if(strcmp(inputPassword, "password")==0){
-				printf("Enter 'rate' to change sample rate, or 'buffer' to clear buffer: ");
-				pc.scanf("%s", &inputChange);
-				check = true;
-				
-				if(strcmp(inputChange, "rate") == 0){
-					printf("Enter sampling rate: ");
-					pc.scanf("%f", &inputFrequency); 
-		
+
+					while(check == false){
+						printf("Enter Frequency: ");
+						pc.scanf("%f", inputFrequency);
 					if(inputFrequency <= 100 && inputFrequency >= 5){
 						sampleStr = 1 / inputFrequency;
 						check = true;
-						
 					}
+					
 					else{
 						check = false;
 					}
 				}
-				
-				else if(strcmp(inputChange, "buffer") == 0){
-					for(int i = 0; i<sizeof(bufferArray); i++){
-						bufferArray[i] = 0;
-						
-					}
-					check = true;
-					
-				}
-			}
-			else{
-				check = false;
-			}
-			
-		
-		}
-	}
 	
-		
-		}
 }
-
+}
+			}
 
 
 
