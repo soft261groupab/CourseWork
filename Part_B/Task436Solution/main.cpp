@@ -191,29 +191,73 @@ void Sobel(){
 	for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {		
 			//Calculate the sum of the Sobel mask times the nine surrounding pixels in the x and y direction 
-			for (rowOffset=-1; rowOffset<=1; rowOffset++) {
-													
-						r0= out_img[row + rowOffset][col - 1];
-						r1= GxMask[1 + rowOffset][0];
+			
+						//row left of pixel [row][col]
+						r0= out_img[row - 1][col - 1];
+						r1= GxMask[0][0];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 
-						r1= GyMask[1 + rowOffset][0];
+						r1= GyMask[0][0];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 
-            r0= out_img[row + rowOffset][col];
-						r1= GxMask[1 + rowOffset][1];
+            r0= out_img[row - 1][col];
+						r1= GxMask[0][1];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 					
-						r1= GyMask[1 + rowOffset][1];
+						r1= GyMask[0][1];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 
-            r0= out_img[row + rowOffset][col + 1];				
-						r1= GxMask[1 + rowOffset][2];
+            r0= out_img[row - 1][col + 1];				
+						r1= GxMask[0][2];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 		
-						r1= GyMask[1 + rowOffset][2];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);				
-			}
+						r1= GyMask[0][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+						
+						
+						//row containing pixel at [row][col]
+            r0= out_img[row][col - 1];
+						r1= GxMask[1][0];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+
+						r1= GyMask[1][0];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+
+            r0= out_img[row][col];
+						r1= GxMask[1][1];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+					
+						r1= GyMask[1][1];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+
+            r0= out_img[row][col + 1];				
+						r1= GxMask[1][2];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+		
+						r1= GyMask[1][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);		
+
+            //row right of pixel at [row][col]      
+            r0= out_img[row + 1][col - 1];
+						r1= GxMask[2][0];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+
+						r1= GyMask[2][0];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+
+                        r0= out_img[row + 1][col];
+						r1= GxMask[2][1];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+					
+						r1= GyMask[2][1];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
+
+                        r0= out_img[row + 1][col + 1];				
+						r1= GxMask[2][2];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+		
+						r1= GyMask[2][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
 			
 			Gx = r2;
 			r2 = 0;
