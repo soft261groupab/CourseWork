@@ -726,16 +726,15 @@ ARM Macro Assembler    Page 12
               00000000 
 Command Line: --debug --xref --cpreproc --diag_suppress=9931 --cpu=Cortex-M4.fp
  --apcs=interwork --depend=.\build\startup_stm32f401xe.d -o.\build\startup_stm3
-2f401xe.o -I.\RTE\_Task612-mbedos54 -I"C:\Users\Harry Fresco\AppData\Local\Arm\
-Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include" -I"C:\Users\Harry Fresco\AppData\Loca
-l\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
-" -I"C:\Users\Harry Fresco\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0" -
--predefine="__UVISION_VERSION SETA 527" --predefine="_RTE_ SETA 1" --predefine=
-"STM32F401xE SETA 1" --cpreproc_opts=-D__ASSERT_MSG,-DTRANSACTION_QUEUE_SIZE_SP
-I=2,-D__CORTEX_M4,-DUSB_STM_HAL,-DARM_MATH_CM4,-D__FPU_PRESENT=1,-DUSBHOST_OTHE
-R,-D__MBED_CMSIS_RTOS_CM,-D__CMSIS_RTOS --list=.\build\startup_stm32f401xe.lst 
-mbed-os/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F401xE/device/TOOLCHAIN_A
-RM_STD/startup_stm32f401xe.S
+2f401xe.o -I.\RTE\_Task612-mbedos54 -I"C:\Program Files\KEIL\ARM\PACK\ARM\CMSIS
+\5.1.1\CMSIS\Include" -I"C:\Program Files\KEIL\ARM\PACK\Keil\STM32F4xx_DFP\2.11
+.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include" -I"C:\Program Files\KEIL\ARM\PACK
+\Keil\STM32F4xx_DFP\2.11.0" --predefine="__UVISION_VERSION SETA 523" --predefin
+e="_RTE_ SETA 1" --predefine="STM32F401xE SETA 1" --cpreproc_opts=-D__ASSERT_MS
+G,-DTRANSACTION_QUEUE_SIZE_SPI=2,-D__CORTEX_M4,-DUSB_STM_HAL,-DARM_MATH_CM4,-D_
+_FPU_PRESENT=1,-DUSBHOST_OTHER,-D__MBED_CMSIS_RTOS_CM,-D__CMSIS_RTOS --list=.\b
+uild\startup_stm32f401xe.lst mbed-os/targets/TARGET_STM/TARGET_STM32F4/TARGET_S
+TM32F401xE/device/TOOLCHAIN_ARM_STD/startup_stm32f401xe.S
 
 
 

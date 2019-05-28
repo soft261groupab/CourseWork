@@ -30,38 +30,40 @@ char inputChange[20];
 
 
 void arrayAverage(){
-	if(arrayCounter == 20){
-         
-					arrayCounter = 0;
-        }
+	if(arrayCounter == inputFrequency){
+		arrayCounter=0;
+				printf("%5.3f\n", averageBuffer);
+			}
     for(int i = 0; i<sizeof(bufferArray); i++){
         sum = sum + bufferArray[i];
     }
     averageBuffer = sum /20;
-    printf("%5.3f\n", averageBuffer);
+    
 		sum = 0;
 		
 }
-
+	
 int main() {
 	
-	while(1){
+			while(1){
 		
 		//Read ADC
 		fVin = AIN;
 		bufferArray[arrayCounter] = fVin;
 		
-        arrayCounter++;
-           arrayAverage();
+    arrayCounter++;
+    arrayAverage();
         
-
+		
 		//printf("Analog input = %5.3f\n", fVin);
 		binaryOutput = 2;
 		//Wait
 		wait(sampleStr);
 		binaryOutput = 0;
 		
-		if(SW2 == 1){ 
+		
+	if(SW2 == 1){ 
+	
 			binaryOutput = 1;
 			check = false;
 		while(check == false){
@@ -100,11 +102,12 @@ int main() {
 				check = false;
 			}
 			
-		}
-		}
 		
-	
+		}
 	}
+	
+		
+		}
 }
 
 
