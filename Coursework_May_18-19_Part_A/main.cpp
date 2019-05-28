@@ -27,7 +27,7 @@ int secondCounter = 0;
 float sum = 0;
 float averageBuffer = 0;
 char inputPassword[20];
-char inputChange[20];
+
 
 
 void arrayAverage(){
@@ -35,7 +35,7 @@ void arrayAverage(){
 	// then 1 second has passed, so the average is calculated
 	if(secondCounter == inputFrequency){
 		secondCounter=0;
-				printf("Average input = %5.3f\n", averageBuffer);
+				
 			
 		//Get the sum of array
     for(int i = 0; i<sizeof(bufferArray); i++){
@@ -43,7 +43,7 @@ void arrayAverage(){
     }
 		//Divide sum by size
     averageBuffer = sum /20;
-    
+    printf("Average input = %5.3f\n", averageBuffer);
 		sum = 0;
 	}
 }
@@ -70,7 +70,7 @@ int main() {
     arrayAverage();
         
 		
-		printf("Analog input = %5.3f\n", fVin);
+		//printf("Analog input = %5.3f\n", fVin);
 		//Turn on green LED
 		binaryOutput = 1;
 		//Wait 1/frequency seconds
@@ -82,23 +82,27 @@ int main() {
 	if(SW2 == 1){
 			//Turn on red LED
 			binaryOutput = 4;
+		
 			check = false;
 
 					while(check == false){
-						//User enters frequency
-						printf("Enter Frequency: ");
-						pc.scanf("%f", inputFrequency);
+
+									printf("Enter Frequency: ");
+									pc.scanf("%f", &inputFrequency);
+									
+								//Checks frequency between 5 and 100Hz	
+								if(inputFrequency <= 100 && inputFrequency >= 5){
+									//Changes from hertz to seconds
+									sampleStr = 1 / inputFrequency;
+									secondCounter = 0;
+									sum = 0;
+									check = true;
+								}
+								
+								else{
+									check = false;
+								}
 						
-					//Checks frequency between 5 and 100Hz	
-					if(inputFrequency <= 100 && inputFrequency >= 5){
-						//Changes from hertz to seconds
-						sampleStr = 1 / inputFrequency;
-						check = true;
-					}
-					
-					else{
-						check = false;
-					}
 				}
 	
 }

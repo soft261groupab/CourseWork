@@ -274,6 +274,6 @@
 ".\build\xtea.o"
 ".\build\main.o"
 --scatter ".\mbed-os\targets\TARGET_STM\TARGET_STM32F4\TARGET_STM32F401xE\device\TOOLCHAIN_ARM_STD\stm32f401xe.sct"
---show_full_path --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--show_full_path --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\BUILD\Task612-mbedos54.map" -o .\BUILD\Task612-mbedos54.axf
