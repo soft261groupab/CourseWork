@@ -25,7 +25,8 @@ float bufferArray[20];
 int arrayCounter = 0;
 float sum = 0;
 float averageBuffer = 0;
-
+char inputPassword[20];
+char inputChange[20];
 
 
 void arrayAverage(){
@@ -64,16 +65,35 @@ int main() {
 			binaryOutput = 1;
 			check = false;
 		while(check == false){
-		printf("Enter sampling rate");
-		pc.scanf("%f", &inputFrequency); 
-		
-			if(inputFrequency <= 100 && inputFrequency >= 5){
-				sampleStr = 1 / inputFrequency;
+			printf("Enter Password: ");
+		pc.scanf("%*c", &inputPassword);
+			if(strcmp(inputPassword, "password")==0){
+				printf("Enter 'rate' to change sample rate, or 'buffer' to clear buffer: ");
+				pc.scanf("%s", &inputChange);
 				check = true;
+				if(strcmp(inputChange, "rate") == 0){
+					printf("Enter sampling rate: ");
+				pc.scanf("%f", &inputFrequency); 
+		
+				if(inputFrequency <= 100 && inputFrequency >= 5){
+					sampleStr = 1 / inputFrequency;
+					check = true;
+				}
+				else{
+					check = false;
+				}
+				}
+				else if(strcmp(inputChange, "buffer") == 0){
+					for(int i = 0; i<sizeof(bufferArray); i++){
+					bufferArray[i] = 0;
+						check = true;
+    }
+				}
 			}
 			else{
-			check = false;
+				check = false;
 			}
+			
 		}
 		}
 		

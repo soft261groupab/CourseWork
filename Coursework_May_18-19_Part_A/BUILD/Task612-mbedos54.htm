@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\BUILD\Task612-mbedos54.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\BUILD\Task612-mbedos54.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 27 19:59:06 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 28 14:56:38 2019
 <BR><P>
 <H3>Maximum Stack Usage =        708 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1111,7 +1111,8 @@ Global Symbols
 <P><STRONG><a name="[277]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memclr_w.o)(.text), UNUSED)
 
 <P><STRONG><a name="[1d9]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strcmpv7m.o)(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
+<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
@@ -1255,8 +1256,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsprintf
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> vsprintf.o(.text)
-<LI> __2sprintf.o(.text)
+<BR>[Address Reference Count : 2]<UL><LI> __2sprintf.o(.text)
+<LI> vsprintf.o(.text)
 </UL>
 <P><STRONG><a name="[129]"></a>_printf_cs_common</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_char.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = _printf_cs_common &rArr; _printf_str &rArr; _printf_post_padding
@@ -1910,7 +1911,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[163]"></a>main</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, .\build\mbed_retarget.o(i.$Sub$$main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 548 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 564 + Unknown Stack Size
 <LI>Call Chain = main &rArr; $Super$$main &rArr; mbed::Stream::scanf(const char*, ...) &rArr; vfscanf &rArr; __vfscanf_char_file &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_main
@@ -3206,8 +3207,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessagePut
 </UL>
 
-<P><STRONG><a name="[165]"></a>$Super$$main</STRONG> (Thumb, 194 bytes, Stack size 8 bytes, .\build\main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 540 + Unknown Stack Size
+<P><STRONG><a name="[165]"></a>$Super$$main</STRONG> (Thumb, 316 bytes, Stack size 24 bytes, .\build\main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 556 + Unknown Stack Size
 <LI>Call Chain = $Super$$main &rArr; mbed::Stream::scanf(const char*, ...) &rArr; vfscanf &rArr; __vfscanf_char_file &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;analogin_read
@@ -3215,6 +3216,7 @@ Global Symbols
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Stream::scanf(const char*, ...)
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arrayAverage()
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -3497,7 +3499,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ab]"></a>pre_main</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, .\build\rtx_conf_cm.o(i.pre_main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 556 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 572 + Unknown Stack Size
 <LI>Call Chain = pre_main &rArr; main &rArr; $Super$$main &rArr; mbed::Stream::scanf(const char*, ...) &rArr; vfscanf &rArr; __vfscanf_char_file &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
