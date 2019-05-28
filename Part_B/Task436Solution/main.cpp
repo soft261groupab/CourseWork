@@ -54,12 +54,20 @@ int main() {
 //--------------------------------
 	Gaussian_Blur();	
 //------------------------------------------------------------------------------
-    timer.stop();
-	printf("\n\rGaussian Blur: executed in %f seconds", timer.read());
+		timer.stop();
+    float gausTime;
+		gausTime	= timer.read();
+		//printf("\n\rGaussian Blur: executed in %f seconds", timer.read());
 	  timer.reset();
 	  snprintf(message,sizeof(message)-1,"Gaussian Blur");
-    print_message( message,compare_Gaussian_images());
-
+	
+		bool outcome;
+		timer.start();
+		outcome =	compare_Gaussian_images();
+		timer.stop();
+    print_message( message,outcome);
+		
+		printf("\n\rGaussian Blur: executed in %f seconds, vs %f", gausTime, timer.read());
 
 	//--------------------------------------------------------
 	//--------------------------------------
@@ -107,30 +115,75 @@ void Gaussian_Blur(){
 	
 	int32_t r0,r1,r2;
 	int row, col, rowOffset, colOffset;							
-		/*----------------------Gaussian Blur------------------------*/		
-	 for (row=1;row<N-1;row++) {
+		/*----------------------Gaussian Blur------------------------*/	
+		
+		r2 = 0;
+	 for (row=1;row<N-1;row++) {		 
 	  for (col=1;col<N-1;col++) {
-			r2=0;
-				for (rowOffset=-1; rowOffset<=1; rowOffset++) {
-					for (colOffset=-1; colOffset<=1; colOffset++) {
-									
-						r0= inp_img[row+rowOffset][col+colOffset];
-						r1= gaussianMask[1 + rowOffset][1 + colOffset];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
-						
-					}
-				}
-				out_img[row][col]=r2 /16;				
+
+						r0= inp_img[row - 1][col - 1];
+						r1= gaussianMask[0][0];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row - 1][col];
+						r1= gaussianMask[0][1];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row - 1][col+1];
+						r1= gaussianMask[0][2];
+						r2 = __smlad(r0,r1,r2);
+
+
+
+            r0= inp_img[row][col - 1];
+						r1= gaussianMask[1][0];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row][col];
+						r1= gaussianMask[1][1];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row][col+1];
+						r1= gaussianMask[1][2];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row + 1][col - 1];
+						r1= gaussianMask[0][0];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row + 1][col];
+						r1= gaussianMask[0][1];
+						r2 = __smlad(r0,r1,r2);
+
+
+            r0= inp_img[row + 1][col+1];
+						r1= gaussianMask[0][2];
+						r2 = __smlad(r0,r1,r2);	
+				
+						out_img[row][col]=r2 /16;
+							
+						r2 = 0;
 			}
 		}
  }
 
+
+
 //returns false/true, when the output image is incorrect/correct, respectively
 bool compare_Gaussian_images(){
 	
+	bool debug = true;
+	
 	int row, col, rowOffset, colOffset;	
 	int newPixel;	
-		/*----------------------COMPARE------------------------*/			
+		/*----------------------COMPARE------------------------*/		
+		
 		for (row = 1; row < N-1; row++) {
 		for (col = 1; col < M-1; col++) {
 			newPixel = 0;
@@ -138,15 +191,22 @@ bool compare_Gaussian_images(){
 				for (colOffset=-1; colOffset<=1; colOffset++) {
 					
           newPixel += inp_img[row+rowOffset][col+colOffset] * gaussianMask[1 + rowOffset][1 + colOffset];
+					
 				}
 			}
-		 newPixel /= 16;
+		 newPixel /= 16; 
 		 if (newPixel != out_img[row][col]){
-			 return false;
+			// return false;
+			 printf("\n\r  row: %d col: %d In val: %d Out val: %d", row ,col , newPixel, out_img[row][col]);
+			
+			debug = false;
 		 }			 
 		}
 	}
-	return true;			
+		
+	
+	//return true;	
+		return debug;
 	}
 
 void Sobel(){
@@ -171,8 +231,7 @@ void Sobel(){
 					
 						r0= out_img[row+rowOffset][col+colOffset];
 						r1= GyMask[1 + rowOffset][1 + colOffset];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);					
-
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 				}
 			}
 			Gx = r2;
