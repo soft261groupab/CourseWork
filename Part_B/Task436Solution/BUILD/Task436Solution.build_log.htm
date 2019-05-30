@@ -28,18 +28,36 @@ Project File Date:  05/16/2019
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Task436Solution'
 compiling main.cpp...
-main.cpp(117): warning:  #177-D: variable "rowOffset"  was declared but never referenced
+main.cpp(116): warning:  #177-D: variable "rowOffset"  was declared but never referenced
   	int row, col, rowOffset, colOffset;							
-main.cpp(117): warning:  #177-D: variable "colOffset"  was declared but never referenced
+main.cpp(116): warning:  #177-D: variable "colOffset"  was declared but never referenced
   	int row, col, rowOffset, colOffset;							
-main.cpp(184): warning:  #177-D: variable "rowOffset"  was declared but never referenced
+main.cpp(204): warning:  #177-D: variable "out_ptr"  was declared but never referenced
+  		uint16_t (*out_ptr)[N][M] = &out_img;
+main.cpp(206): warning:  #177-D: variable "imp_ptr"  was declared but never referenced
+  		uint16_t (*imp_ptr)[N][M] = &inp_img;
+main.cpp(208): warning:  #550-D: variable "newPixel"  was set but never used
+  		int newPixel;
+main.cpp(210): warning:  #177-D: variable "rowOffset"  was declared but never referenced
+  		int rowOffset =1; int colOffset =1;
+main.cpp(210): warning:  #177-D: variable "colOffset"  was declared but never referenced
+  		int rowOffset =1; int colOffset =1;
+main.cpp(218): warning:  #177-D: variable "a"  was declared but never referenced
+  		uint16_t a = 0;
+main.cpp(219): warning:  #177-D: variable "b"  was declared but never referenced
+  		int b =1;
+main.cpp(220): warning:  #177-D: variable "t"  was declared but never referenced
+  		char t[800]; 
+main.cpp(222): warning:  #177-D: variable "print"  was declared but never referenced
+  		char print[40]; 
+main.cpp(225): warning:  #177-D: variable "mod"  was declared but never referenced
+  		int mod = T / 9;	
+main.cpp(308): warning:  #177-D: variable "rowOffset"  was declared but never referenced
   	int row, col, rowOffset, Gx, Gy;		
-main.cpp(310): warning:  #111-D: statement is unreachable
-  			 printf("\n\r  row: %d col: %d In val: %d Out val: %d", row ,col , newPixel, out_img[row][col]);
-main.cpp: 4 warnings, 0 errors
+main.cpp: 13 warnings, 0 errors
 linking...
-Program Size: Code=22520 RO-data=2232 RW-data=108 ZI-data=54876  
-".\BUILD\Task436Solution.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=23852 RO-data=2232 RW-data=108 ZI-data=54876  
+".\BUILD\Task436Solution.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 

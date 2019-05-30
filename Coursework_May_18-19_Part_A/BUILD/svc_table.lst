@@ -72,15 +72,15 @@ ARM Macro Assembler    Page 2
    53 00000004                 END
 Command Line: --debug --xref --cpreproc --diag_suppress=9931 --cpu=Cortex-M4.fp
  --apcs=interwork --depend=.\build\svc_table.d -o.\build\svc_table.o -I.\RTE\_T
-ask612-mbedos54 -I"C:\Users\Harry Fresco\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.
-1\CMSIS\Core\Include" -I"C:\Users\Harry Fresco\AppData\Local\Arm\Packs\Keil\STM
-32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include" -I"C:\Users\Harry 
-Fresco\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0" --predefine="__UVISIO
-N_VERSION SETA 527" --predefine="_RTE_ SETA 1" --predefine="STM32F401xE SETA 1"
- --cpreproc_opts=-D__ASSERT_MSG,-DTRANSACTION_QUEUE_SIZE_SPI=2,-D__CORTEX_M4,-D
-USB_STM_HAL,-DARM_MATH_CM4,-D__FPU_PRESENT=1,-DUSBHOST_OTHER,-D__MBED_CMSIS_RTO
-S_CM,-D__CMSIS_RTOS --list=.\build\svc_table.lst mbed-os/rtos/rtx/TARGET_CORTEX
-_M/TARGET_RTOS_M4_M7/TOOLCHAIN_ARM/SVC_Table.S
+ask612-mbedos54 -IC:\Users\642\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Co
+re\Include -IC:\Users\642\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Dri
+vers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\642\AppData\Local\Arm\Packs\K
+eil\STM32F4xx_DFP\2.13.0 --predefine="__EVAL SETA 1" --predefine="__UVISION_VER
+SION SETA 527" --predefine="_RTE_ SETA 1" --predefine="STM32F401xE SETA 1" --cp
+reproc_opts=-D__ASSERT_MSG,-DTRANSACTION_QUEUE_SIZE_SPI=2,-D__CORTEX_M4,-DUSB_S
+TM_HAL,-DARM_MATH_CM4,-D__FPU_PRESENT=1,-DUSBHOST_OTHER,-D__MBED_CMSIS_RTOS_CM,
+-D__CMSIS_RTOS --list=.\build\svc_table.lst mbed-os/rtos/rtx/TARGET_CORTEX_M/TA
+RGET_RTOS_M4_M7/TOOLCHAIN_ARM/SVC_Table.S
 
 
 
@@ -146,4 +146,4 @@ LCHAIN_ARM\SVC_Table.S
 LCHAIN_ARM\SVC_Table.S
 Comment: SVC_Cnt used once
 1 symbol
-338 symbols in table
+339 symbols in table
