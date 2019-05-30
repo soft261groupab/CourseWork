@@ -84,7 +84,6 @@ int main() {
 		snprintf(message,sizeof(message)-1,"Sobel");
     print_message(message,compare_Sobel_images());
 
-
 	return 0;
 }
 
@@ -111,102 +110,24 @@ void initialization(){
 	    gradient[i][j]=0;
 }
 
-void Gaussian_Debug(){
-	
-	uint32_t r0,r1,r2;
-	int row, col, rowOffset, colOffset;							
-		/*----------------------Gaussian DEBUG------------------------*/	
-	
-	printf("\n \r ---------------Gaussian DEBUG------------");
-		int c =0;
-		r2 = 0;
-	 for (row=1;row<2;row++) {		 
-	  for (col=1;col<20;col++) {
-
-						r0= inp_img[row - 1][col - 1];
-						r1= gaussianMask[0][0];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-			
-						
-		
-            r0= inp_img[row - 1][col];
-						r1= gaussianMask[0][1];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:2  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row - 1][col+1];
-						r1= gaussianMask[0][2];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:3  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-
-            r0= inp_img[row][col - 1];
-						r1= gaussianMask[1][0];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:4  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row][col];
-						r1= gaussianMask[1][1];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:5  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row][col+1];
-						r1= gaussianMask[1][2];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:6  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row + 1][col - 1];
-						r1= gaussianMask[0][0];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:7  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row + 1][col];
-						r1= gaussianMask[0][1];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:8  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }	
-
-
-            r0= inp_img[row + 1][col+1];
-						r1= gaussianMask[0][2];
-						r2 = __smlad(r0,r1,r2); if (row == 1 ) { if (c <10)   { printf("\n \r c%d:1  r0:%-5d r1:%-5d",col, c++,r1); } }   if (row == 1 && col > 77) { printf("\n \r c%d:9  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); } else if (row == 2 && col < 4) { printf("\n \r c%d:1  r0:%-5d r1:%-5d r2:%-5d",c, r0,r1,r2); }		
-				
-						r2=r2 /16;
-						
-						printf("\n \r %d, out:%d ", col-1, r2);
-						
-						r2 =0;
-						
-						break;
-						
-							/*				
-						if (r2 == out_img[1][col]) {
-							printf("\n \r out: %d == %d ",out_img[row][col], r2);
-						}							
-						else
-						printf("\n \r out: %d != %d ",out_img[row][col], r2);
-							
-						r2 = 0;
-						
-						*/
-			}
-		
-			
-			
-		}
- }
 
 
 void Gaussian_Blur(){
 	
 		uint32_t r0,r1,r2;
 		int row, col;							
-		/*----------------------Gaussian Blur------------------------*/	
-				
-		//uint16_t (*out_ptr)[N][M] = &out_img;
-		
+		/*----------------------Gaussian Blur------------------------*/					
+		//uint16_t (*out_ptr)[N][M] = &out_img;		
 		//uint16_t (*imp_ptr)[N][M] = &inp_img;
 
-			r2 = 0;
-		  col =1;
+		r2 = 0;
+		col =1;	
+	/*
+	*
+	*		register blocking applied with Duffs Device	
+	*
+	*/
+	
 	
 	 for (row = 1; row < N-1; row++) {
 		 int n = N-1; 
@@ -216,6 +137,7 @@ void Gaussian_Blur(){
 				do {										
 				case 0:		//0th
 									
+						//GaussMask == 0, used __sadd16 to add values from imp_img via vector
 						r0 = inp_img[row - 1][col - 1];						
 						r2 = inp_img[row - 1][col - 1];
 						
@@ -229,7 +151,7 @@ void Gaussian_Blur(){
 						
 						r2 = __sadd16(r0,r2);
 
-														
+				//for case 1 and 2 __smlad is used for vectorised multiplication
         case 1:   	//1st
 						//
 						r1= gaussianMask[0][1];			
@@ -253,15 +175,11 @@ void Gaussian_Blur(){
 							
 						out_img[row][col++] = r2 / 16;
 				
-						r2 =0;
-						
+						r2 =0;						
 					
 			} while (n-- > 0);		
 		}
-	}
-	
- //Gaussian_Debug();
-
+	} 
 }
 
 void Sobel_Debug(){
@@ -378,20 +296,6 @@ void Sobel_Debug(){
 		}
 	}
 }
-/*
-int16_t GxMask[3][3] = {
-{-1,     0,   1},  	 	{-2,   0,  2},  {-1,   0,   1}
- 0,0     X   0,2   	1,0      X 1,2    2,0     X 	2,2                 
-
-};	
-
-int16_t GyMask[3][3] = {
-{-1,    -2,   -1},     {1,    2,   1}
- 0,0    0,1   0,2   	 2,0   2,1 	2,2    
-};	
-
-
-*/
 void Sobel(){
 	
 	int32_t r0,r1,r2,r3;
@@ -401,9 +305,7 @@ void Sobel(){
 		/*---------------------- Sobel ---------------------------------*/
 			r3 = 0;
 			r2 = 0;
-		  col =1;
-	
-	int c=0;
+		  col=1;
 	
 	 for (row = 1; row < N-1; row++) {
 		 int n = N-1; 
@@ -411,8 +313,7 @@ void Sobel(){
     switch ((N-1) % 3)
      {
 				do {										
-				case 0:		//0th
-									
+				case 0:		//0th									
 //0th			
 						//row left of pixel [row][col]						
 						r0= out_img[row - 1][col - 1];
@@ -420,8 +321,7 @@ void Sobel(){
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 
 						//r1= GyMask[0][0];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);				
-
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
 //1
            // r0=  out_img[row - 1][col];
 						//r1= 0; //GxMask[0][1];
@@ -435,51 +335,43 @@ void Sobel(){
 						r1= GxMask[0][2];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 		
-						//r1= GyMask[0][2];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);		
-//4			
-														
+						r1= GyMask[0][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
+//4																	
         case 1: 
 //3
 						//row containing pixel at [row][col]
             r0= out_img[row][col - 1];
 						r1= GxMask[1][0];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-
-
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
 //5
             r0= out_img[row][col + 1];				
 						r1= GxMask[1][2];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-
-				
-				
-					case 2: //6
-            //row right of pixel at [row][col] 
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);	
+				case 2: //6
 					
+            //row right of pixel at [row][col] 
+//6					
             r0= out_img[row + 1][col - 1];
 						r1= GxMask[2][0];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 
-						r1= 1; //GyMask[2][0];
+						r1= GyMask[2][0];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 //7
-            //r0= out_img[row + 1][col];
-						//r1= GxMask[2][1];
-						//r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);	
+
+            r0= out_img[row + 1][col + 1];				
+						//r1= 1; //GxMask[2][2];
+						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
+		
+						//r1= 1; // GyMask[2][2];
+						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);		
 					
 						r0= out_img[row + 1][col];
 						r1= GyMask[2][1];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 //8
-            r0= out_img[row + 1][col + 1];				
-						r1= 1; //GxMask[2][2];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-		
-						r1= 1; // GyMask[2][2];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
-						
-						c +=9;
+
 			
 			Gx = r2;
 			r2 = 0;
@@ -504,11 +396,8 @@ void Sobel(){
 						
 					
 			} while (n-- > 0);	
-		}
-		
+		}		
 	}
-	 
- //Sobel_Debug();
 }
 
 
@@ -577,7 +466,7 @@ bool compare_Gaussian_images(){
 
 			temp = abs(Gx) + abs(Gy);	/* Calculate gradient strength		*/	
 			if (temp != gradient[row][col]){
-				printf("\n \r row:%d col:%d", row, col);
+				
 				return false;
 			}
 			thisAngle = (atan2((float) Gx, (float) Gy)/3.14159f) * 180.0f;		/* Calculate actual direction of edge [-180, +180]*/

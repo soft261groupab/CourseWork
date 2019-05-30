@@ -3606,11 +3606,11 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>main.cpp</Name>
-        <ColumnNumber>70</ColumnNumber>
-        <TopLine>325</TopLine>
-        <CurrentLine>432</CurrentLine>
+        <ColumnNumber>0</ColumnNumber>
+        <TopLine>1</TopLine>
+        <CurrentLine>86</CurrentLine>
         <Folding>1</Folding>
-        <ContractedFolders>281,517</ContractedFolders>
+        <ContractedFolders>199,406</ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
     </MDIGroup>
