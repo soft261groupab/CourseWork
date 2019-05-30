@@ -3,7 +3,11 @@
 <title>Static Call Graph - [.\BUILD\Task612-mbedos54.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\BUILD\Task612-mbedos54.axf</H1><HR>
+<<<<<<< HEAD
 <BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 28 17:52:50 2019
+=======
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue May 28 22:19:00 2019
+>>>>>>> 3951374956655abf15513dbf7bc4363ed63c2a30
 <BR><P>
 <H3>Maximum Stack Usage =        708 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1111,8 +1115,7 @@ Global Symbols
 <P><STRONG><a name="[277]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memclr_w.o)(.text), UNUSED)
 
 <P><STRONG><a name="[1d9]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strcmpv7m.o)(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
+<BR><BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
@@ -2164,7 +2167,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_OC_Start
 </UL>
 
-<P><STRONG><a name="[18e]"></a>arrayAverage()</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, .\build\main.o(i._Z12arrayAveragev))
+<P><STRONG><a name="[18e]"></a>arrayAverage()</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, .\build\main.o(i._Z12arrayAveragev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = arrayAverage() &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -3207,7 +3210,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrMessagePut
 </UL>
 
-<P><STRONG><a name="[165]"></a>$Super$$main</STRONG> (Thumb, 296 bytes, Stack size 8 bytes, .\build\main.o(i.main))
+<P><STRONG><a name="[165]"></a>$Super$$main</STRONG> (Thumb, 230 bytes, Stack size 8 bytes, .\build\main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 540 + Unknown Stack Size
 <LI>Call Chain = $Super$$main &rArr; mbed::Stream::scanf(const char*, ...) &rArr; vfscanf &rArr; __vfscanf_char_file &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
@@ -3216,7 +3219,6 @@ Global Symbols
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Stream::scanf(const char*, ...)
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arrayAverage()
-<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
