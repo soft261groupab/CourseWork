@@ -38,7 +38,7 @@ bool compare_Sobel_images();
 void print_message(char *s, bool outcome);
 void Gaussian_Blur();
 void Sobel();
-void Sobel_Debug();
+
 // Main program function.
 int main() {
   
@@ -117,14 +117,12 @@ void Gaussian_Blur(){
 		uint32_t r0,r1,r2;
 		int row, col;							
 		/*----------------------Gaussian Blur------------------------*/					
-		//uint16_t (*out_ptr)[N][M] = &out_img;		
-		//uint16_t (*imp_ptr)[N][M] = &inp_img;
 
 		r2 = 0;
 		col =1;	
 	/*
 	*
-	*		register blocking applied with Duffs Device	
+	*		register blocking applied using Duffs Device
 	*
 	*/
 	
@@ -182,127 +180,20 @@ void Gaussian_Blur(){
 	} 
 }
 
-void Sobel_Debug(){
-	
-	int32_t r0,r1,r2,r3;
-	int row, col, temp, Gx, Gy;		
-	float thisAngle;				
-	uint8_t newAngle;	
-		/*---------------------- Sobel ---------------------------------*/
-	printf("\n \r ---------------SOB DEBUG------------");
-	
-	r2 = 0;
-	r3 = 0;
-	
-	int c = 0;
-	
-	for (row = 1; row < N-1; row++) {
-		for (col = 1; col < M-1; col++) {		
-			//Calculate the sum of the Sobel mask times the nine surrounding pixels in the x and y direction 
-									
-//0th			
-						//row left of pixel [row][col]						
-						r0= out_img[row - 1][col - 1];
-						r1= GxMask[0][0];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
 
-						r1= GyMask[0][0];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);				
-
-//1
-           // r0=  out_img[row - 1][col];
-						//r1= 0; //GxMask[0][1];
-						//r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
-				
-						r0= out_img[row - 1][col];
-						r1= GyMask[0][1];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
-			
-				
-				
-//2
-            r0= out_img[row - 1][col + 1];				
-						r1= GxMask[0][2];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-		
-						r1= GyMask[0][2];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);		
-//4			
-														
-        
-//3
-						//row containing pixel at [row][col]
-            r0= out_img[row][col - 1];
-						r1= GxMask[1][0];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-
-
-//5
-            r0= out_img[row][col + 1];				
-						r1= GxMask[1][2];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-
-				
-				
-					
-            //row right of pixel at [row][col] 
-					
-            r0= out_img[row + 1][col - 1];
-						r1= GxMask[2][0];
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-
-						r1= 1; //GyMask[2][0];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
-//7
-            //r0= out_img[row + 1][col];
-						//r1= GxMask[2][1];
-						//r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);	
-					
-						r0= out_img[row + 1][col];
-						r1= GyMask[2][1];
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
-//8
-            r0= out_img[row + 1][col + 1];				
-						r1= 1;
-						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);					
-		
-						r1= 1;
-						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
-						
-						
-						c +=9;
-			
-			Gx = r2;
-			r2 = 0;
-			
-			Gy = r3;
-			r3 = 0;
-			
-			gradient[row][col] = abs(Gx) + abs(Gy);	// Calculate gradient strength		
-			thisAngle = (atan2((float) Gx, (float) Gy)/3.14159f) * 180.0f;		// Calculate actual direction of edge [-180, +180]
-			
-			// Convert actual edge direction to approximate value 
-			if ( ( (thisAngle >= -22.5f) && (thisAngle <= 22.5f) ) || (thisAngle >= 157.5f) || (thisAngle <= -157.5f) )
-				newAngle = 0;
-			if ( ( (thisAngle > 22.5f) && (thisAngle < 67.5f) ) || ( (thisAngle > -157.5f) && (thisAngle < -112.5f) ) )
-				newAngle = 45;
-			if ( ( (thisAngle >= 67.5f) && (thisAngle <= 112.5f) ) || ( (thisAngle >= -112.5f) && (thisAngle <= -67.5f) ) )
-				newAngle = 90;
-			if ( ( (thisAngle > 112.5f) && (thisAngle < 157.5f) ) || ( (thisAngle > -67.5f) && (thisAngle < -22.5f) ) )
-				newAngle = 135;
-				
-			edge_Dir[row][col] = newAngle;
-			
-		}
-	}
-}
 void Sobel(){
 	
 	int32_t r0,r1,r2,r3;
-	int row, col, rowOffset, Gx, Gy;		
+	int row, col, Gx, Gy;		
 	float thisAngle;				
 	uint8_t newAngle;	
-		/*---------------------- Sobel ---------------------------------*/
+		/*---------------------- Sobel ---------------------------------*/	
+		/*
+	*
+	*		register blocking applied using Duffs Device
+	*
+	*/
+	
 			r3 = 0;
 			r2 = 0;
 		  col=1;
@@ -323,7 +214,8 @@ void Sobel(){
 						//r1= GyMask[0][0];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
 //1
-           // r0=  out_img[row - 1][col];
+						//Uneeded task adding nill value
+            //r0=  out_img[row - 1][col];
 						//r1= 0; //GxMask[0][1];
 						//r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);
 				
@@ -337,7 +229,7 @@ void Sobel(){
 		
 						r1= GyMask[0][2];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);	
-//4																	
+//4						//uneeded taks removed here											
         case 1: 
 //3
 						//row containing pixel at [row][col]
@@ -348,7 +240,7 @@ void Sobel(){
             r0= out_img[row][col + 1];				
 						r1= GxMask[1][2];
 						r2 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r2);	
-				case 2: //6
+				case 2: 
 					
             //row right of pixel at [row][col] 
 //6					
@@ -371,7 +263,6 @@ void Sobel(){
 						r1= GyMask[2][1];
 						r3 = __smlad(* (uint32_t *) &r0,* (uint32_t *) &r1,r3);
 //8
-
 			
 			Gx = r2;
 			r2 = 0;
@@ -406,8 +297,7 @@ void Sobel(){
 //returns false/true, when the output image is incorrect/correct, respectively
 bool compare_Gaussian_images(){
 	
-	//bool debug = true;
-	
+		
 	int row, col, rowOffset, colOffset;	
 	int newPixel;	
 		/*----------------------COMPARE------------------------*/		
@@ -423,21 +313,13 @@ bool compare_Gaussian_images(){
 			}
 		 newPixel /= 16;
 
-		 if (newPixel != out_img[row][col]){
-			 
-			 //DEBUG START!
-			// if (row < 2) {
-			//	 if (col < 10) {
-			// printf("\n\r  row: %d col: %d In val: %d Out val: %d", row ,col , newPixel, out_img[row][col]);
-			//	 }
-			// }else //DEBUG END
+		 if (newPixel != out_img[row][col]){			 
+			
 			return false;			
 		 }			 
 		}
-	}
-	
-	return true;	
-		//return debug;
+	}	
+	return true;			
 	}
 
 	//this function is check whether your code version generates the correct output or not
